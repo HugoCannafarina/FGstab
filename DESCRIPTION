@@ -1,0 +1,33 @@
+Package: FGstab
+Type: Package
+Title: Stability-Based Variable Selection for the Fine-Gray Competing Risks Model
+Version: 0.1.0
+Authors@R: person("Hugo", "Cannafarina",
+                  email = "hugo.cannafarina@free.fr",
+                  role  = c("aut", "cre"))
+Description: Implements Integrated Path Stability Selection (IPSS) for
+    penalised Fine-Gray competing risks regression in high-dimensional settings.
+    The method repeatedly subsamples the data, fits a LASSO-penalised Fine-Gray
+    model across a regularisation path, and aggregates selection frequencies
+    into stability paths. EFP scores and q-values derived from path integration
+    allow control of the expected number of false positives or the false
+    discovery rate. The package also provides tools for simulating competing
+    risks data under several covariance structures and for visualising stability
+    paths.
+License: GPL-3
+Encoding: UTF-8
+RoxygenNote: 7.3.3
+Depends:
+    R (>= 4.1.0)
+Imports:
+    parallel,
+    Matrix,
+    fastcmprsk,
+    ggplot2,
+    MASS
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr

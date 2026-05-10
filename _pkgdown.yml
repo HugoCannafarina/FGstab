@@ -1,0 +1,38 @@
+url: https://hugocannafarina.github.io/FGstab
+
+template:
+  bootstrap: 5
+
+home:
+  title: "FGstab — Stability Selection for the Fine-Gray Model"
+  description: >
+    Integrated Path Stability Selection (IPSS) for high-dimensional
+    variable selection in competing risks regression.
+
+navbar:
+  structure:
+    left:  [intro, reference, articles]
+    right: [github]
+  components:
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/hugocannafarina/FGstab
+
+reference:
+  - title: "Main function"
+    contents:
+      - FGstab
+  - title: "S3 methods"
+    contents:
+      - print.ipss_result
+      - summary.ipss_result
+      - plot.ipss_result
+  - title: "Data simulation"
+    contents:
+      - sim_competing
+      - sim_survival
+
+articles:
+  - title: "Vignettes"
+    contents:
+      - getting-started

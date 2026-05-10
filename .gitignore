@@ -1,0 +1,25 @@
+# knitr figure output (root-level, produced when knitting from project root)
+figure/
+
+# R build artefacts
+*.Rhistory
+*.RData
+*.Ruserdata
+.Rproj.user/
+
+
+# pkgdown build output
+docs/
+
+# Package build
+*.tar.gz
+*.zip
+
+# Scratch files
+Tests package.R
+
+# Vignette build artefacts
+vignettes/*.R
+vignettes/*.html
+vignettes/*.Rmd.html
+
