@@ -3,16 +3,13 @@
 **Stability-based variable selection for the Fine-Gray competing risks
 model**
 
-FGstab provides reliable sparse variable selection for high-dimensional
-competing risks and survival data. It implements Integrated Path
-Stability Selection (IPSS) (Melikechi & Miller, 2026) for the penalised
-Fine-Gray model (Fu, Parikh & Zhou, 2017), extending the stability
-selection framework of Meinshausen & Bühlmann (2010) to competing risks
-regression. The method aggregates selection frequencies along the LASSO
-regularisation path and bounds the expected number of false positives
-and false discovery rate via path integration. It also supports standard
-survival data with no competing event, in which case it reduces to IPSS
-for the penalised Cox model.
+FGstab selects relevant predictors from high-dimensional competing risks
+or survival data, with statistical guarantees on the number of false
+discoveries. It combines the penalised Fine-Gray model (Fu, Parikh &
+Zhou, 2017) with Integrated Path Stability Selection (Melikechi &
+Miller, 2026), extending the stability selection framework of
+Meinshausen & Bühlmann (2010) to competing risks regression. Also
+supports standard survival data with no competing event.
 
 ------------------------------------------------------------------------
 
