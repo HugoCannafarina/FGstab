@@ -47,25 +47,28 @@ devtools::install_github("hugocannafarina/FGstab")
 ``` r
 
 library(FGstab)
-set.seed(1)
+set.seed(123)
 
-# Simulate data: 150 individuals, 8 true predictors, 300 total variables
-dat <- sim_competing(n_ind = 150, n_pred = 8, n_var = 300,
+# Simulate data: 250 individuals, 10 true predictors, 500 total variables
+dat <- sim_competing(n_ind = 250, n_pred = 10, n_var = 500,
                      design = "independent")
 y <- cbind(time = dat$surv$Tobs, status = dat$surv$evtype)
 
-# Run IPSS — returns scores without automatic selection
-res <- FGstab(dat$X, y, n_alphas = 15)
+# Select features controlling the FDR
+res <- FGstab(dat$X, y, target_fdr = 0.1)
 print(res)
 plot(res)
 
 # Select features controlling the expected number of false positives
-res_fp <- FGstab(dat$X, y, n_alphas = 15, target_fp = 1)
+res_fp <- FGstab(dat$X, y, target_fp = 1)
 print(res_fp)
 
-# Select features controlling the FDR
-res_fdr <- FGstab(dat$X, y, n_alphas = 15, target_fdr = 0.2)
-summary(res_fdr)
+# Standard survival data (no competing event) — reduces to Cox
+dat_cox <- sim_survival(n_ind = 250, n_pred = 10, n_var = 500,
+                        design = "independent")
+y_cox <- cbind(time = dat_cox$surv$Tobs, status = dat_cox$surv$evtype)
+res_cox <- FGstab(dat_cox$X, y_cox, target_fdr = 0.1)
+print(res_cox)
 ```
 
 ------------------------------------------------------------------------

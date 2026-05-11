@@ -81,25 +81,28 @@ You must install it from GitHub <strong>before</strong> using FGstab:</p>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">FGstab</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Simulate data: 150 individuals, 8 true predictors, 300 total variables</span></span>
-<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_competing.html">sim_competing</a></span><span class="op">(</span>n_ind <span class="op">=</span> <span class="fl">150</span>, n_pred <span class="op">=</span> <span class="fl">8</span>, n_var <span class="op">=</span> <span class="fl">300</span>,</span>
+<span><span class="co"># Simulate data: 250 individuals, 10 true predictors, 500 total variables</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_competing.html">sim_competing</a></span><span class="op">(</span>n_ind <span class="op">=</span> <span class="fl">250</span>, n_pred <span class="op">=</span> <span class="fl">10</span>, n_var <span class="op">=</span> <span class="fl">500</span>,</span>
 <span>                     design <span class="op">=</span> <span class="st">"independent"</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">dat</span><span class="op">$</span><span class="va">surv</span><span class="op">$</span><span class="va">Tobs</span>, status <span class="op">=</span> <span class="va">dat</span><span class="op">$</span><span class="va">surv</span><span class="op">$</span><span class="va">evtype</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Run IPSS — returns scores without automatic selection</span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/FGstab.html">FGstab</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">X</span>, <span class="va">y</span>, n_alphas <span class="op">=</span> <span class="fl">15</span><span class="op">)</span></span>
+<span><span class="co"># Select features controlling the FDR</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/FGstab.html">FGstab</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">X</span>, <span class="va">y</span>, target_fdr <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Select features controlling the expected number of false positives</span></span>
-<span><span class="va">res_fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/FGstab.html">FGstab</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">X</span>, <span class="va">y</span>, n_alphas <span class="op">=</span> <span class="fl">15</span>, target_fp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">res_fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/FGstab.html">FGstab</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">X</span>, <span class="va">y</span>, target_fp <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res_fp</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Select features controlling the FDR</span></span>
-<span><span class="va">res_fdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/FGstab.html">FGstab</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">X</span>, <span class="va">y</span>, n_alphas <span class="op">=</span> <span class="fl">15</span>, target_fdr <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res_fdr</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Standard survival data (no competing event) — reduces to Cox</span></span>
+<span><span class="va">dat_cox</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_survival.html">sim_survival</a></span><span class="op">(</span>n_ind <span class="op">=</span> <span class="fl">250</span>, n_pred <span class="op">=</span> <span class="fl">10</span>, n_var <span class="op">=</span> <span class="fl">500</span>,</span>
+<span>                        design <span class="op">=</span> <span class="st">"independent"</span><span class="op">)</span></span>
+<span><span class="va">y_cox</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">dat_cox</span><span class="op">$</span><span class="va">surv</span><span class="op">$</span><span class="va">Tobs</span>, status <span class="op">=</span> <span class="va">dat_cox</span><span class="op">$</span><span class="va">surv</span><span class="op">$</span><span class="va">evtype</span><span class="op">)</span></span>
+<span><span class="va">res_cox</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/FGstab.html">FGstab</a></span><span class="op">(</span><span class="va">dat_cox</span><span class="op">$</span><span class="va">X</span>, <span class="va">y_cox</span>, target_fdr <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res_cox</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">

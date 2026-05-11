@@ -24,7 +24,7 @@ FGstab(
   target_fp = NULL,
   target_fdr = 0.1,
   ipss_function = "h2",
-  n_jobs = detectCores() - 1L
+  n_jobs = 1L
 )
 ```
 
@@ -71,8 +71,8 @@ FGstab(
 
 - n_jobs:
 
-  Integer. Number of cores for parallel subsampling. Defaults to
-  `detectCores() - 1`.
+  Integer. Number of cores for parallel subsampling. Default `1`.
+  Increase for faster computation on multi-core machines.
 
 ## Value
 
@@ -120,7 +120,7 @@ An object of class `ipss_result` with fields:
 ``` r
 if (FALSE) { # \dontrun{
 set.seed(123)
-dat <- sim_competing(n_ind = 150, n_pred = 10, n_var = 500,
+dat <- sim_competing(n_ind = 250, n_pred = 10, n_var = 500,
                      design = "independent")
 y <- as.matrix(dat$surv[, c("Tobs", "evtype")])
 

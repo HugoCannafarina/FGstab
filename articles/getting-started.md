@@ -21,6 +21,10 @@ subsamples and many values of $`\lambda`$ are considered reliable.
 
 ``` r
 
+# Install fastcmprsk from GitHub (required dependency, not on CRAN)
+devtools::install_github("erickawaguchi/fastcmprsk")
+
+# Install FGstab
 remotes::install_github("hugocannafarina/FGstab")
 ```
 
