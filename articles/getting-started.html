@@ -63,7 +63,11 @@
 Selection (IPSS) for high-dimensional variable selection in the
 Fine-Gray competing risks regression model. The method extends the
 stability selection framework of Meinshausen &amp; Bühlmann (2010) to
-the penalised Fine-Gray estimator.</p>
+the penalised Fine-Gray estimator. At each subsampling step, an
+L1-penalised Fine-Gray model is fitted on the subdistribution hazard
+(Fu, Parikh &amp; Zhou, 2017), and selection frequencies are aggregated
+across the regularisation path to produce stable, interpretable
+results.</p>
 <p>The core idea is simple: instead of fitting a single LASSO model, the
 data is repeatedly split in half and a LASSO Fine-Gray model is fitted
 on each half-sample across a grid of regularisation values
@@ -408,6 +412,9 @@ selection. <em>Journal of the American Statistical Association</em>,
 <li>Meinshausen, N. &amp; Bühlmann, P. (2010). Stability selection.
 <em>Journal of the Royal Statistical Society: Series B</em>, 72(4),
 417–473.</li>
+<li>Fu, Z., Parikh, C. R. &amp; Zhou, B. (2017). Penalized variable
+selection in competing risks regression. <em>Lifetime Data
+Analysis</em>, 23(3), 353–376.</li>
 <li>Fine, J. P. &amp; Gray, R. J. (1999). A proportional hazards model
 for the subdistribution of a competing risk. <em>JASA</em>, 94(446),
 496–509.</li>

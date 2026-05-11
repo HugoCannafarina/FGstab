@@ -49,7 +49,7 @@
 <div class="page-header"><h1 id="fgstab">FGstab<a class="anchor" aria-label="anchor" href="#fgstab"></a>
 </h1></div>
 <p><strong>Stability-based variable selection for the Fine-Gray competing risks model</strong></p>
-<p>FGstab provides reliable sparse variable selection for high-dimensional competing risks and survival data. It implements Integrated Path Stability Selection (IPSS) (Melikechi &amp; Miller, 2026) for the penalised Fine-Gray model, extending the stability selection framework of Meinshausen &amp; Bühlmann (2010) to competing risks regression. The method aggregates selection frequencies along the LASSO regularisation path and bounds the expected number of false positives and false discovery rate via path integration. It also supports standard survival data with no competing event, in which case it reduces to IPSS for the penalised Cox model.</p>
+<p>FGstab provides reliable sparse variable selection for high-dimensional competing risks and survival data. It implements Integrated Path Stability Selection (IPSS) (Melikechi &amp; Miller, 2026) for the penalised Fine-Gray model (Fu, Parikh &amp; Zhou, 2017), extending the stability selection framework of Meinshausen &amp; Bühlmann (2010) to competing risks regression. The method aggregates selection frequencies along the LASSO regularisation path and bounds the expected number of false positives and false discovery rate via path integration. It also supports standard survival data with no competing event, in which case it reduces to IPSS for the penalised Cox model.</p>
 <hr>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -132,6 +132,7 @@ You must install it from GitHub <strong>before</strong> using FGstab:</p>
 <ul>
 <li>Melikechi, O., &amp; Miller, J. W. (2026). Integrated path stability selection. Journal of the American Statistical Association, 121(553), 454–464.</li>
 <li>Meinshausen, N. &amp; Bühlmann, P. (2010). Stability selection. <em>Journal of the Royal Statistical Society: Series B</em>, 72(4), 417–473.</li>
+<li>Fu, Z., Parikh, C. R. &amp; Zhou, B. (2017). Penalized variable selection in competing risks regression. <em>Lifetime Data Analysis</em>, 23(3), 353–376.</li>
 <li>Fine, J. P. &amp; Gray, R. J. (1999). A proportional hazards model for the subdistribution of a competing risk. <em>JASA</em>, 94(446), 496–509.</li>
 </ul>
 </div>
