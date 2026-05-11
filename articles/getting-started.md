@@ -19,15 +19,6 @@ subsamples and many values of $`\lambda`$ are considered reliable.
 
 ## Installation
 
-`fastcmprsk` is required but not on CRAN — install it from GitHub first:
-
-``` r
-
-remotes::install_github("erickawaguchi/fastcmprsk")
-```
-
-Then install FGstab:
-
 ``` r
 
 remotes::install_github("hugocannafarina/FGstab")
@@ -177,7 +168,7 @@ you can inspect before choosing a threshold:
 efp_sorted <- sort(unlist(res$efp_scores))
 head(round(efp_sorted, 4), 10)
 #>    288     36    255     16     13     40    234    192    212    175 
-#> 0.0735 0.0807 0.0846 0.1556 0.1688 0.2950 0.3209 0.3310 0.5536 5.6708
+#> 0.0556 0.0622 0.0669 0.1250 0.1394 0.2420 0.2981 0.3299 0.5814 8.8899
 ```
 
 ### Controlling the expected number of false positives
@@ -219,12 +210,12 @@ summary(res_fdr)
 #> Features selected      : 9 
 #> 
 #> EFP scores (top 10 most stable features):
-#>    288     36    255     16     13     40    192    234    212    175 
-#> 0.0725 0.0818 0.0863 0.1660 0.1914 0.2629 0.2768 0.4365 0.5935 4.9379 
+#>    288     36    255     16     13    192     40    234    212    218 
+#> 0.0538 0.0602 0.0650 0.1448 0.1834 0.2596 0.3621 0.4784 0.6581 5.7595 
 #> 
 #> Q-values (selected features):
 #>     13     16     36     40    192    212    234    255    288 
-#> 0.0383 0.0383 0.0288 0.0395 0.0395 0.0659 0.0546 0.0288 0.0288
+#> 0.0367 0.0362 0.0217 0.0517 0.0433 0.0731 0.0598 0.0217 0.0217
 ```
 
 ------------------------------------------------------------------------
@@ -249,8 +240,8 @@ res_cox <- FGstab(dat_cox$X, y_cox, n_alphas = 15, target_fdr = 0.2, n_jobs = 1)
 print(res_cox)
 #> === FGstab Result (IPSS) ===
 #> Features tested  : 300 
-#> Features selected: 7 
-#> Selected indices : 52, 54, 59, 62, 135, 158, 196
+#> Features selected: 6 
+#> Selected indices : 21, 51, 93, 117, 125, 254
 ```
 
 ------------------------------------------------------------------------
@@ -264,9 +255,11 @@ red; the top-5 most stable features are labelled on the right margin.
 ``` r
 
 plot(res_fdr)
-#> Error in `ggplot()`:
-#> ! impossible de trouver la fonction "ggplot"
 ```
+
+![Stability paths plot](figure/plot-1.png)
+
+plot of chunk plot
 
 You can increase `n_highlight` to label more features, or save the plot:
 

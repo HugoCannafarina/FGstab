@@ -79,14 +79,9 @@ are considered reliable.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p><code>fastcmprsk</code> is required but not on CRAN — install it from
-GitHub first:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"erickawaguchi/fastcmprsk"</span><span class="op">)</span></span></code></pre></div>
-<p>Then install FGstab:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"hugocannafarina/FGstab"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">FGstab</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
@@ -96,7 +91,7 @@ GitHub first:</p>
 <p><code><a href="../reference/sim_competing.html">sim_competing()</a></code> generates synthetic data from the
 Fine-Gray model with a user-controlled covariance structure. We use the
 independent design here for simplicity.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
 <span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_competing.html">sim_competing</a></span><span class="op">(</span></span>
 <span>  n_ind       <span class="op">=</span> <span class="fl">200</span>,</span>
@@ -118,7 +113,7 @@ independent design here for simplicity.</p>
 <p>The outcome matrix <code>y</code> passed to <code><a href="../reference/FGstab.html">FGstab()</a></code>
 must have two columns: observed time and event type (0 = censored, 1 =
 event of interest, 2 = competing event).</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>time <span class="op">=</span> <span class="va">dat</span><span class="op">$</span><span class="va">surv</span><span class="op">$</span><span class="va">Tobs</span>, status <span class="op">=</span> <span class="va">dat</span><span class="op">$</span><span class="va">surv</span><span class="op">$</span><span class="va">evtype</span><span class="op">)</span></span></code></pre></div>
 <hr>
 </div>
@@ -227,7 +222,7 @@ q_j = \min_{t \,:\, \mathrm{EFP}_t \leq \mathrm{EFP}_j}
 <div class="section level3">
 <h3 id="inspect-scores-without-selecting">Inspect scores without selecting<a class="anchor" aria-label="anchor" href="#inspect-scores-without-selecting"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FGstab.html">FGstab</a></span><span class="op">(</span></span>
 <span>  X             <span class="op">=</span> <span class="va">dat</span><span class="op">$</span><span class="va">X</span>,</span>
 <span>  y             <span class="op">=</span> <span class="va">y</span>,</span>
@@ -242,12 +237,12 @@ q_j = \min_{t \,:\, \mathrm{EFP}_t \leq \mathrm{EFP}_j}
 <span><span class="co">#&gt; Selected indices : 13, 16, 36, 40, 192, 212, 234, 255, 288</span></span></code></pre></div>
 <p>The result contains <code>efp_scores</code> and <code>q_values</code>
 for all features, which you can inspect before choosing a threshold:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># 10 most stable features (lowest EFP scores)</span></span>
 <span><span class="va">efp_sorted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">efp_scores</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">efp_sorted</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    288     36    255     16     13     40    234    192    212    175 </span></span>
-<span><span class="co">#&gt; 0.0735 0.0807 0.0846 0.1556 0.1688 0.2950 0.3209 0.3310 0.5536 5.6708</span></span></code></pre></div>
+<span><span class="co">#&gt; 0.0556 0.0622 0.0669 0.1250 0.1394 0.2420 0.2981 0.3299 0.5814 8.8899</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="controlling-the-expected-number-of-false-positives">Controlling the expected number of false positives<a class="anchor" aria-label="anchor" href="#controlling-the-expected-number-of-false-positives"></a>
@@ -255,7 +250,7 @@ for all features, which you can inspect before choosing a threshold:</p>
 <p>Setting <code>target_fp = 1</code> selects all features whose EFP
 score is at most 1, meaning that at most 1 false positive is expected in
 the selected set on average.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res_fp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FGstab.html">FGstab</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">X</span>, <span class="va">y</span>, n_alphas <span class="op">=</span> <span class="fl">15</span>, target_fp <span class="op">=</span> <span class="fl">1</span>, n_jobs <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res_fp</span><span class="op">)</span></span>
 <span><span class="co">#&gt; === FGstab Result (IPSS) ===</span></span>
@@ -276,7 +271,7 @@ the selected set on average.</p>
 </h3>
 <p>Setting <code>target_fdr = 0.2</code> selects features whose q-value
 is at most 0.2.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">res_fdr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FGstab.html">FGstab</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">X</span>, <span class="va">y</span>, n_alphas <span class="op">=</span> <span class="fl">15</span>, target_fdr <span class="op">=</span> <span class="fl">0.2</span>, n_jobs <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">res_fdr</span><span class="op">)</span></span>
 <span><span class="co">#&gt; === Summary: FGstab Result (IPSS) ===</span></span>
@@ -285,12 +280,12 @@ is at most 0.2.</p>
 <span><span class="co">#&gt; Features selected      : 9 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; EFP scores (top 10 most stable features):</span></span>
-<span><span class="co">#&gt;    288     36    255     16     13     40    192    234    212    175 </span></span>
-<span><span class="co">#&gt; 0.0725 0.0818 0.0863 0.1660 0.1914 0.2629 0.2768 0.4365 0.5935 4.9379 </span></span>
+<span><span class="co">#&gt;    288     36    255     16     13    192     40    234    212    218 </span></span>
+<span><span class="co">#&gt; 0.0538 0.0602 0.0650 0.1448 0.1834 0.2596 0.3621 0.4784 0.6581 5.7595 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Q-values (selected features):</span></span>
 <span><span class="co">#&gt;     13     16     36     40    192    212    234    255    288 </span></span>
-<span><span class="co">#&gt; 0.0383 0.0383 0.0288 0.0395 0.0395 0.0659 0.0546 0.0288 0.0288</span></span></code></pre></div>
+<span><span class="co">#&gt; 0.0367 0.0362 0.0217 0.0517 0.0433 0.0731 0.0598 0.0217 0.0217</span></span></code></pre></div>
 <hr>
 </div>
 </div>
@@ -302,7 +297,7 @@ equivalent to IPSS for the penalised Cox model. Use
 <code><a href="../reference/sim_survival.html">sim_survival()</a></code> to simulate data in that setting — the
 output format is identical to <code><a href="../reference/sim_competing.html">sim_competing()</a></code> but
 <code>evtype</code> only takes values 0 (censored) and 1 (event).</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat_cox</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_survival.html">sim_survival</a></span><span class="op">(</span>n_ind <span class="op">=</span> <span class="fl">200</span>, n_pred <span class="op">=</span> <span class="fl">10</span>, n_var <span class="op">=</span> <span class="fl">300</span>,</span>
 <span>                        design <span class="op">=</span> <span class="st">"independent"</span><span class="op">)</span></span>
 <span><span class="va">y_cox</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">dat_cox</span><span class="op">$</span><span class="va">surv</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Tobs"</span>, <span class="st">"evtype"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
@@ -311,8 +306,8 @@ output format is identical to <code><a href="../reference/sim_competing.html">si
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">res_cox</span><span class="op">)</span></span>
 <span><span class="co">#&gt; === FGstab Result (IPSS) ===</span></span>
 <span><span class="co">#&gt; Features tested  : 300 </span></span>
-<span><span class="co">#&gt; Features selected: 7 </span></span>
-<span><span class="co">#&gt; Selected indices : 52, 54, 59, 62, 135, 158, 196</span></span></code></pre></div>
+<span><span class="co">#&gt; Features selected: 6 </span></span>
+<span><span class="co">#&gt; Selected indices : 21, 51, 93, 117, 125, 254</span></span></code></pre></div>
 <hr>
 </div>
 <div class="section level2">
@@ -321,13 +316,16 @@ output format is identical to <code><a href="../reference/sim_competing.html">si
 <p><code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> displays the stability paths of all features.
 Selected features are highlighted in red; the top-5 most stable features
 are labelled on the right margin.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res_fdr</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in `ggplot()`:</span></span>
-<span><span class="co">#&gt; ! impossible de trouver la fonction "ggplot"</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res_fdr</span><span class="op">)</span></span></code></pre></div>
+<div class="figure">
+<img src="figure/plot-1.png" alt="Stability paths plot"><p class="caption">
+plot of chunk plot
+</p>
+</div>
 <p>You can increase <code>n_highlight</code> to label more features, or
 save the plot:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">res_fdr</span>, n_highlight <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">"stability_paths.pdf"</span>, <span class="va">p</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <hr>
@@ -358,7 +356,7 @@ matrix
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat_toep</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_competing.html">sim_competing</a></span><span class="op">(</span>n_ind <span class="op">=</span> <span class="fl">200</span>, n_pred <span class="op">=</span> <span class="fl">10</span>, n_var <span class="op">=</span> <span class="fl">300</span>,</span>
 <span>                          design <span class="op">=</span> <span class="st">"toeplitz"</span>, rho <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
 <hr>

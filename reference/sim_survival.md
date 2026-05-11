@@ -45,9 +45,7 @@ sim_survival(
 
   Character string. Covariance structure of \\\Sigma\\. One of
   `"independent"`, `"toeplitz"`, or `"block"`. See the *Covariance
-  structures* section of
-  [`sim_competing`](https://hugocannafarina.github.io/FGstab/reference/sim_competing.md)
-  for details.
+  structures* section for details.
 
 - rho:
 
